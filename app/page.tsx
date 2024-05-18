@@ -1,4 +1,73 @@
+"use client";
+import axios from "@/utils/axios";
+import { useState } from "react";
+interface ApiResponse {
+  coord: {
+    lon: number;
+    lat: number;
+  };
+  weather: [
+    {
+      id: number;
+      main: string;
+      description: string;
+      icon: string;
+    }
+  ];
+  base: string;
+  main: {
+    temp: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
+    pressure: number;
+    humidity: number;
+  };
+  visibility: number;
+  wind: {
+    speed: number;
+    deg: number;
+  };
+  clouds: {
+    all: number;
+  };
+  dt: number;
+  sys: {
+    type: number;
+    id: number;
+    country: string;
+    sunrise: number;
+    sunset: number;
+  };
+  timezone: number;
+  id: number;
+  name: string;
+  cod: number;
+}
+
 export default function Home() {
+  const [data, setData] = useState<ApiResponse | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get<ApiResponse>(
+        `https://api.openweathermap.org/data/2.5/weather?q=${"Kulai"},${'MY'}&appid=${
+          process.env.NEXT_PUBLIC_API_KEY
+        }`
+      );
+      setData(response.data);
+    } catch (error) {
+      setError("An error occurred while fetching data");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col">
       {/* page header */}
@@ -20,14 +89,25 @@ export default function Home() {
           </div>
 
           <div className="flex gap-2">
-            <button>search</button>
+            <button onClick={fetchData}>search</button>
             <button>clear</button>
           </div>
         </div>
 
-        <div className="border-red border-solid border-[1px] bg-red-400">
-          Not found
-        </div>
+        {error || !data ? (
+          <div className="border-red border-solid border-[1px] bg-red-400">
+            Not found
+          </div>
+        ) : (
+          <div className="flex flex-col">
+            <div>{data.name}, {data.sys.country}</div>
+            <div>{data.weather[0].main}</div>
+            <div>Description: {data.weather[0].description}</div>
+            <div>Tempetature: {data.main.temp_min} ~ {data.main.temp_max}</div>
+            <div>Humidity: {data.main.humidity}</div>
+            <div>Time: {new Date(Date.now() + data.timezone).toDateString()}</div>
+          </div>
+        )}
       </div>
 
       {/* history */}
@@ -35,7 +115,9 @@ export default function Home() {
         <div className="border-b-solid border-b-[1px] w-full border-b-black">
           <h1>Search History</h1>
         </div>
-        <div className="w-full min-h-[300px] flex justify-center items-center">No Record</div>
+        <div className="w-full min-h-[300px] flex justify-center items-center">
+          No Record
+        </div>
       </div>
     </div>
   );
