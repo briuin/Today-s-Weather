@@ -1,6 +1,6 @@
 "use client";
 import axios from "@/utils/axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 interface ApiResponse {
   coord: {
     lon: number;
@@ -49,13 +49,18 @@ export default function Home() {
   const [data, setData] = useState<ApiResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const cityInputRef = useRef<HTMLInputElement>(null);
+  const countryInputRef = useRef<HTMLInputElement>(null);
 
   const fetchData = async () => {
+    if (!cityInputRef?.current?.value || !countryInputRef?.current?.value) {
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
       const response = await axios.get<ApiResponse>(
-        `https://api.openweathermap.org/data/2.5/weather?q=${"Kulai"},${'MY'}&appid=${
+        `https://api.openweathermap.org/data/2.5/weather?q=${cityInputRef.current.value},${countryInputRef.current.value}&appid=${
           process.env.NEXT_PUBLIC_API_KEY
         }`
       );
@@ -67,6 +72,16 @@ export default function Home() {
       setLoading(false);
     }
   };
+
+  const clear = () => {
+    if (cityInputRef.current) {
+      cityInputRef.current.value = '';
+    }
+
+    if (countryInputRef.current) {
+      countryInputRef.current.value = '';
+    }
+  }
 
   return (
     <div className="flex flex-col">
@@ -80,17 +95,17 @@ export default function Home() {
         <div className="flex gap-[20px]">
           <div className="flex">
             <div>City: </div>
-            <input />
+            <input ref={cityInputRef}/>
           </div>
 
           <div className="flex">
             <div>Country: </div>
-            <input />
+            <input ref={countryInputRef}/>
           </div>
 
           <div className="flex gap-2">
             <button onClick={fetchData}>search</button>
-            <button>clear</button>
+            <button onClick={clear}>clear</button>
           </div>
         </div>
 
