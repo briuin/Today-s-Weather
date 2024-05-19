@@ -1,13 +1,14 @@
 "use client";
 import useDateFormatter from "@/hooks/useDateFormatter";
 import Image from "next/image";
+import { History } from "./history";
 import { useWeatherContext } from "@/context/weather-context";
 
 export const WeatherDetails = () => {
   const { error, weather } = useWeatherContext();
   const { formatDate } = useDateFormatter();
   return (
-    <div className="rounded-[20px] p-[20px] bg-weather-details-background">
+    <div className="flex flex-col gap-[20px] rounded-[20px] mt-[60px] p-[20px] bg-weather-details-background">
       {error || !weather ? (
         <div className="border-red border-solid border-[1px] bg-red-400">
           Not found
@@ -45,6 +46,8 @@ export const WeatherDetails = () => {
           </div>
         </div>
       )}
+
+      <History></History>
     </div>
   );
 };

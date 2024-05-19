@@ -11,6 +11,7 @@ export const History = () => {
     if (weather) {
       setHistoryWeathers([...historyWeathers, weather]);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [weather]);
 
   return (
@@ -25,7 +26,7 @@ export const History = () => {
 
 const EmptyData = () => {
   return (
-    <div className="w-full min-h-[300px] flex justify-center items-center">
+    <div className="w-full min-h-[120px] desktop:min-h-[300px] flex justify-center items-center text-zinc-600 text-xs desktop:text-base">
       No Record
     </div>
   );
@@ -37,7 +38,7 @@ const WeatherList = () => {
   const { fetchWeather } = useWeatherContext();
 
   return (
-    <div className="flex flex-col gap-[18px] ml-[17px] mr-[13px] pb-[100px]">
+    <div className="flex flex-col gap-[18px] ml-[17px] mr-[13px] pb-[100px] text-xs desktop:text-base">
       {historyWeathers.map((weather) => (
         <HistoryWeather
           key={weather.timestamp}
