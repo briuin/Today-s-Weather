@@ -5,7 +5,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 
 const useDateFormatter = () => {
-  const formatDate = useCallback((date: string | Date, format: string = 'YYYY-MM-DD'): string => {
+  const formatDate = useCallback((date: string | Date, format: string = 'DD-MM-YYYY HH:mmA'): string => {
     return dayjs(date).format(format);
   }, []);
 

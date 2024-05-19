@@ -26,14 +26,9 @@ export const HistoryWeather = ({
         <div className="flex">
           {weather.name}, {weather.sys.country}
         </div>
-        <div>
-          {formatDate(
-            new Date(Date.now() + weather.timezone),
-            "DD-MM-YYYY HH:mmA"
-          )}
-        </div>
+        <div>{formatDate(new Date(weather.timestamp + weather.timezone))}</div>
       </div>
-      <div className="flex gap-2 text-history-action-color">
+      <div className="flex gap-2 text-history-action">
         <HistoryActionButton
           icon={cilSearch}
           action={() => fetchWeather(weather.name, weather.sys.country)}
@@ -60,7 +55,7 @@ const HistoryActionButton = ({
       className="w-[34px] h-[34px] relative cursor-pointer"
       onClick={() => action()}
     >
-      <div className="w-[34px] h-[34px] left-0 top-0 absolute bg-history-action-background-color rounded-full shadow border-[1px] border-solid border-[var(--history-action-border-color)]" />
+      <div className="w-[34px] h-[34px] left-0 top-0 absolute bg-history-action-background rounded-full shadow border-[1px] border-solid border-[var(--history-action-border-color)]" />
       <CIcon className="w-4 h-4 left-[9px] top-[9px] absolute " icon={icon} />
     </div>
   );

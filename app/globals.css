@@ -8,6 +8,7 @@
   --history-action-background-color: white;
   --history-background: rgba(255, 255, 255, 0.2);
   --history-weather-background: rgba(255, 255, 255, 0.4);
+  --weather-details-color: rgba(102, 102, 102, 1);
 }
 
 .dark {
@@ -20,6 +21,7 @@
   --history-action-background-color: transparent;
   --history-background: rgba(26, 26, 26, 0.3);
   --history-weather-background: rgba(26, 26, 26, 0.5);
+  --weather-details-color: white;
 }
 
 @tailwind base;

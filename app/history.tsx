@@ -13,7 +13,7 @@ export const History = ({
   removeWeatherHistory,
 }: HistoryProp) => {
   return (
-    <div className="w-full bg-history-background rounded-3xl mx-[15px] desktop:mx-0  text-sm desktop:text-base">
+    <div className="bg-history-background rounded-3xl mx-[15px] desktop:mx-0  text-sm desktop:text-base">
       <div className="w-full m-[20px]">
         <span>Search History</span>
       </div>
