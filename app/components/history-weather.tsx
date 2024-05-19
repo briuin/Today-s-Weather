@@ -26,7 +26,7 @@ export const HistoryWeather = ({
         <div className="flex">
           {weather.name}, {weather.sys.country}
         </div>
-        <div>{formatDate(new Date(weather.timestamp + weather.timezone))}</div>
+        <div className="text-history-action text-xs desktop:text-base">{formatDate(new Date(weather.timestamp + weather.timezone))}</div>
       </div>
       <div className="flex gap-2 text-history-action">
         <HistoryActionButton
