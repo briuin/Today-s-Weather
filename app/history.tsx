@@ -1,31 +1,24 @@
+import { useHistoryContext } from "@/context/history-context";
 import { HistoryWeather } from "./history-weather";
-import { Weather } from "./interfaces/weather";
+import { useWeatherContext } from "@/context/weather-context";
+import { useEffect } from "react";
 
-interface HistoryProp {
-  weathers: Weather[];
-  fetchWeather: Function;
-  removeWeatherHistory: Function;
-}
+export const History = () => {
+  const { historyWeathers, setHistoryWeathers } = useHistoryContext();
+  const { weather } = useWeatherContext();
 
-export const History = ({
-  weathers,
-  fetchWeather,
-  removeWeatherHistory,
-}: HistoryProp) => {
+  useEffect(() => {
+    if (weather) {
+      setHistoryWeathers([...historyWeathers, weather]);
+    }
+  }, [weather]);
+
   return (
     <div className="bg-history-background rounded-3xl text-sm desktop:text-base">
       <div className="w-full m-[20px]">
         <span>Search History</span>
       </div>
-      {!weathers.length ? (
-        <EmptyData />
-      ) : (
-        <WeatherList
-          weathers={weathers}
-          removeWeatherHistory={removeWeatherHistory}
-          fetchWeather={fetchWeather}
-        ></WeatherList>
-      )}
+      {!historyWeathers.length ? <EmptyData /> : <WeatherList></WeatherList>}
     </div>
   );
 };
@@ -38,21 +31,17 @@ const EmptyData = () => {
   );
 };
 
-const WeatherList = ({
-  weathers,
-  removeWeatherHistory,
-  fetchWeather,
-}: {
-  weathers: Weather[];
-  removeWeatherHistory: Function;
-  fetchWeather: Function;
-}) => {
+const WeatherList = () => {
+  const { historyWeathers, removeHistoryWeather } = useHistoryContext();
+
+  const { fetchWeather } = useWeatherContext();
+
   return (
     <div className="flex flex-col gap-[18px] ml-[17px] mr-[13px] pb-[100px]">
-      {weathers.map((weather) => (
+      {historyWeathers.map((weather) => (
         <HistoryWeather
           key={weather.timestamp}
-          removeWeatherHistory={removeWeatherHistory}
+          removeWeatherHistory={removeHistoryWeather}
           weather={weather}
           fetchWeather={fetchWeather}
         ></HistoryWeather>
