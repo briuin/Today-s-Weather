@@ -12,7 +12,7 @@ export const WeatherDetails = ({
 }) => {
   const { formatDate } = useDateFormatter();
   return (
-    <div className="rounded-[20px] p-[20px] bg-white bg-opacity-20">
+    <div className="rounded-[20px] p-[20px] bg-weather-details-background">
       {error || !data ? (
         <div className="border-red border-solid border-[1px] bg-red-400">
           Not found

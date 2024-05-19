@@ -19,19 +19,7 @@ const config: Config = {
         "history-background": "var(--history-background)",
         "history-weather-background": "var(--history-weather-background)",
         "weather-details": "var(--weather-details-color)",
-      },
-      backgroundColor: {
-        light: {
-          background: "#ffffff",
-        },
-        dark: {
-          background: "#121212",
-        },
-      },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "weather-details-background": "var(--weather-details-background)",
       },
     },
     screens: {
