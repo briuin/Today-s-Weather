@@ -1,6 +1,7 @@
 "use client";
 import axios from "@/utils/axios";
 import { useRef, useState } from "react";
+import { ThemeSwitcher } from "./theme-switcher";
 interface Weather {
   coord: {
     lon: number;
@@ -99,11 +100,12 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-background text-text transition-colors duration-300">
       {/* page header */}
       <div className="border-b-solid border-b-[1px] w-full border-b-black">
         <h1>Today's Weather</h1>
       </div>
+      <ThemeSwitcher></ThemeSwitcher>
 
       {/* filter area */}
       <div className="flex flex-col">
