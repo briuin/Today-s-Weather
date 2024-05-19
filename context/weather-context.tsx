@@ -9,6 +9,7 @@ interface WeatherContextProps {
   fetchWeather: (city: string, country: string) => void;
   error: string | null;
   setError: (value: string) => void;
+  isLoading: boolean;
 }
 
 const WeatherContext = createContext<WeatherContextProps | undefined>(undefined);
@@ -22,6 +23,10 @@ export const WeatherProvider: React.FC<{ children: ReactNode }> = ({ children })
   const { request } = useAxios();
 
   const fetchWeather = async (city: string, country: string) => {
+    if (loading) {
+        return;
+    }
+
     const query = {
       city: city,
       country: lookup(country),
@@ -51,7 +56,7 @@ export const WeatherProvider: React.FC<{ children: ReactNode }> = ({ children })
   };
 
   return (
-    <WeatherContext.Provider value={{ weather, setWeather, fetchWeather, error, setError }}>
+    <WeatherContext.Provider value={{ weather, setWeather, fetchWeather, error, setError, isLoading: loading }}>
       {children}
     </WeatherContext.Provider>
   );

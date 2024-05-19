@@ -7,7 +7,7 @@ import { useWeatherContext } from "@/context/weather-context";
 export const WeatherFilter = () => {
   const [city, setCity] = useState<string>("");
   const [country, setCountry] = useState<string>("");
-  const { fetchWeather } = useWeatherContext();
+  const { fetchWeather, isLoading } = useWeatherContext();
 
   const clear = () => {
     setCity("");
@@ -18,7 +18,6 @@ export const WeatherFilter = () => {
     <>
       <div className="flex gap-[20px] flex-col items-end desktop:flex-row desktop:items-center desktop:mb-[100px]">
         <div className="flex w-full desktop:flex-1">
-
           <Input
             value={city}
             onChange={(e) => setCity(e.target.value)}
@@ -42,6 +41,7 @@ export const WeatherFilter = () => {
             color="secondary"
             onClick={() => fetchWeather(city, country)}
             isDisabled={city === "" || country === ""}
+            isLoading={isLoading}
           >
             search
           </Button>
