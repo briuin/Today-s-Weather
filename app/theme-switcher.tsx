@@ -23,7 +23,6 @@ export const ThemeSwitcher = () => {
 
   return (
     <Switch
-      defaultSelected
       size="lg"
       color="secondary"
       onValueChange={toggleTheme}
