@@ -50,7 +50,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col text-text transition-colors duration-300 max-w-[700px] ml-auto mr-auto">
+    <div className="min-h-screen p-[15px] desktop:p-0 flex flex-col text-text transition-colors duration-300 max-w-[700px] desktop:ml-auto desktop:mr-auto">
       <Header></Header>
 
       <WeatherMain
