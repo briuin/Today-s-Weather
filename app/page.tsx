@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
-import { ThemeSwitcher } from "./theme-switcher";
 import { Weather } from "./interfaces/weather";
 import { History } from "./history";
 import useCountryCodeLookup from "@/hooks/useCountryCodeLookup";
 import useAxios from "@/hooks/useAxios";
 import { WeatherMain } from "./weather-main";
+import { Header } from "./header";
 
 export default function Home() {
   const [data, setData] = useState<Weather | null>(null);
@@ -15,12 +15,12 @@ export default function Home() {
   const { lookup } = useCountryCodeLookup();
   const { request } = useAxios();
 
-  const fetchWeather = async (city: string , country: string) => {
+  const fetchWeather = async (city: string, country: string) => {
     const query = {
       city: city,
       country: lookup(country),
       apiKey: process.env.NEXT_PUBLIC_API_KEY,
-    }
+    };
     if (!query.city || !query.country) {
       return;
     }
@@ -28,12 +28,12 @@ export default function Home() {
     setLoading(true);
     setError(null);
     try {
-      const response = await request<Weather>(
-        {url: `https://api.openweathermap.org/data/2.5/weather?q=${query.city},${query.country}&appid=${query.apiKey}`}
-      );
+      const response = await request<Weather>({
+        url: `https://api.openweathermap.org/data/2.5/weather?q=${query.city},${query.country}&appid=${query.apiKey}`,
+      });
       const weather = {
         ...response.data,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
       setData(weather);
       setHistory([...history, weather]);
@@ -47,19 +47,23 @@ export default function Home() {
 
   const removeHistory = (timestamp: number) => {
     setHistory(history.filter((x) => x.timestamp !== timestamp));
-  }
+  };
 
   return (
     <div className="min-h-screen flex flex-col text-text transition-colors duration-300 max-w-[700px] ml-auto mr-auto">
-      {/* page header */}
-      <div className="border-b-solid border-b-[1px] w-full border-b-black">
-        <h1>Today's Weather</h1>
-      </div>
-      <ThemeSwitcher></ThemeSwitcher>
+      <Header></Header>
 
-      <WeatherMain fetchWeather={fetchWeather} error={error!} data={data!}></WeatherMain>
+      <WeatherMain
+        fetchWeather={fetchWeather}
+        error={error!}
+        data={data!}
+      ></WeatherMain>
 
-      <History weathers={history} fetchWeather={fetchWeather} removeWeatherHistory={removeHistory}></History>
+      <History
+        weathers={history}
+        fetchWeather={fetchWeather}
+        removeWeatherHistory={removeHistory}
+      ></History>
     </div>
   );
 }
