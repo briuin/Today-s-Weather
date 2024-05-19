@@ -1,5 +1,6 @@
 import { Weather } from '@/app/interfaces/weather';
 import useAxios from '@/hooks/useAxios';
+import useUrlEncoding from '@/hooks/useUrlEncoding';
 import useCountryCodeLookup from '@/hooks/useCountryCodeLookup';
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
@@ -21,6 +22,7 @@ export const WeatherProvider: React.FC<{ children: ReactNode }> = ({ children })
 
   const { lookup } = useCountryCodeLookup();
   const { request } = useAxios();
+  const { encodeUrl } = useUrlEncoding();
 
   const fetchWeather = async (city: string, country: string) => {
     if (loading) {
@@ -31,6 +33,7 @@ export const WeatherProvider: React.FC<{ children: ReactNode }> = ({ children })
       city: city,
       country: lookup(country),
       apiKey: process.env.NEXT_PUBLIC_API_KEY,
+      units: 'metric',
     };
     if (!query.city || !query.country) {
       return;
@@ -40,7 +43,7 @@ export const WeatherProvider: React.FC<{ children: ReactNode }> = ({ children })
     setError(null);
     try {
       const response = await request<Weather>({
-        url: `https://api.openweathermap.org/data/2.5/weather?q=${query.city},${query.country}&appid=${query.apiKey}`,
+        url: `https://api.openweathermap.org/data/2.5/weather?q=${encodeUrl(query.city)},${encodeUrl(query.country)}&appid=${query.apiKey}&&units=${query.units}`,
       });
       const weather = {
         ...response.data,

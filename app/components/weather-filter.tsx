@@ -7,7 +7,7 @@ import { useWeatherContext } from "@/context/weather-context";
 export const WeatherFilter = () => {
   const [city, setCity] = useState<string>("");
   const [country, setCountry] = useState<string>("");
-  const { fetchWeather, isLoading } = useWeatherContext();
+  const { error, fetchWeather, isLoading } = useWeatherContext();
 
   const clear = () => {
     setCity("");
@@ -16,7 +16,7 @@ export const WeatherFilter = () => {
 
   return (
     <>
-      <div className="flex gap-[20px] flex-col items-end desktop:flex-row desktop:items-center desktop:mb-[100px]">
+      <div className="flex gap-[20px] flex-col items-end desktop:flex-row desktop:items-center">
         <div className="flex w-full desktop:flex-1">
           <Input
             value={city}
@@ -55,6 +55,15 @@ export const WeatherFilter = () => {
           </Button>
         </div>
       </div>
+
+      {error && (
+        <div
+          className="border border-red-500 bg-red-200 text-red-800 px-2 py-1 rounded mt-4 desktop:mt-2"
+          role="alert"
+        >
+          <span className="block sm:inline">Not found.</span>
+        </div>
+      )}
     </>
   );
 };

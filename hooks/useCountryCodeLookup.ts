@@ -16,7 +16,7 @@ const useCountryCodeLookup = () => {
 
     const countryResult = lookup.byCountry(keywordWithFirstUpper);
 
-    return countryResult?.iso2 || "";
+    return countryResult?.iso2 || keyword;
   }, []);
   return { lookup: countryCodeLookup };
 };

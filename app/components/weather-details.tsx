@@ -8,12 +8,8 @@ export const WeatherDetails = () => {
   const { error, weather } = useWeatherContext();
   const { formatDate } = useDateFormatter();
   return (
-    <div className="flex flex-col gap-[20px] rounded-[20px] mt-[60px] p-[20px] bg-weather-details-background">
-      {error || !weather ? (
-        <div className="border-red border-solid border-[1px] bg-red-400">
-          Not found
-        </div>
-      ) : (
+    <div className="flex flex-col gap-[20px] rounded-[20px] mt-[60px] p-[20px] bg-weather-details-background desktop:mt-[140px]">
+      {(!error && weather) && (
         <div className="flex flex-col relative">
           <div className="text-xl desktop:text-2xl">
             {weather.weather[0].description}
@@ -38,7 +34,7 @@ export const WeatherDetails = () => {
             </div>
             <div className="flex flex-col items-end desktop:flex-row desktop:justify-between desktop:flex-1">
               <div>{weather.weather[0].main}</div>
-              <div>Humidity: {weather.main.humidity}</div>
+              <div>Humidity: {weather.main.humidity}%</div>
               <div>
                 {formatDate(new Date(weather.timestamp + weather.timezone))}
               </div>
