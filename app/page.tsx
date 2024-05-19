@@ -2,50 +2,8 @@
 import axios from "@/utils/axios";
 import { useRef, useState } from "react";
 import { ThemeSwitcher } from "./theme-switcher";
-interface Weather {
-  coord: {
-    lon: number;
-    lat: number;
-  };
-  weather: [
-    {
-      id: number;
-      main: string;
-      description: string;
-      icon: string;
-    }
-  ];
-  base: string;
-  main: {
-    temp: number;
-    feels_like: number;
-    temp_min: number;
-    temp_max: number;
-    pressure: number;
-    humidity: number;
-  };
-  visibility: number;
-  wind: {
-    speed: number;
-    deg: number;
-  };
-  clouds: {
-    all: number;
-  };
-  dt: number;
-  sys: {
-    type: number;
-    id: number;
-    country: string;
-    sunrise: number;
-    sunset: number;
-  };
-  timezone: number;
-  id: number;
-  name: string;
-  cod: number;
-  timestamp: number;
-}
+import { Weather } from "./interfaces/weather";
+import { History } from "./history";
 
 export default function Home() {
   const [data, setData] = useState<Weather | null>(null);
@@ -100,7 +58,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col bg-background text-text transition-colors duration-300">
+    <div className="min-h-screen flex flex-col text-text transition-colors duration-300 max-w-[700px] ml-auto mr-auto">
       {/* page header */}
       <div className="border-b-solid border-b-[1px] w-full border-b-black">
         <h1>Today's Weather</h1>
@@ -148,34 +106,7 @@ export default function Home() {
         )}
       </div>
 
-      {/* history */}
-      <div className="w-full">
-        <div className="border-b-solid border-b-[1px] w-full border-b-black">
-          <h1>Search History</h1>
-        </div>
-        {
-          !history.length ? 
-          <div className="w-full min-h-[300px] flex justify-center items-center">
-          No Record
-        </div>
-        : 
-        <div>
-          {history.map((x, i) => (
-            <div className="flex justify-between w-full" key={x.id}>
-              <div className="flex">{i + 1}. {x.name}, {x.sys.country} </div>
-              <div className="flex gap-2">
-                <div>{new Date(Date.now() + x.timezone).toDateString()}</div>
-                <div className="flex gap-2">
-                  <button onClick={() => fetchWeather(x.name, x.sys.country)}>search</button>
-                  <button onClick={() => removeHistory(x.timestamp)}>delete</button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        }
-        
-      </div>
+      <History weathers={history} fetchWeather={fetchWeather} removeWeatherHistory={removeHistory}></History>
     </div>
   );
 }

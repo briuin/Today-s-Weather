@@ -12,6 +12,10 @@ const config: Config = {
         background: 'var(--background-color)',
         text: 'var(--text-color)',
         primary: 'var(--primary-color)',
+        'history-action-color': 'var(--history-action-color)',
+        'history-action-background-color': 'var(--history-action-background-color)',
+        'history-background': 'var(--history-background)',
+        'history-weather-background': 'var(--history-weather-background)',
       },
       backgroundColor: {
         light: {
@@ -27,6 +31,9 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
+    screens: {
+      'desktop': '700px',
+    }
   },
   plugins: [],
 };

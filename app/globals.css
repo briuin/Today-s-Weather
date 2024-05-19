@@ -2,12 +2,24 @@
   --background-color: #ffffff;
   --text-color: #000000;
   --primary-color: #1da1f2;
+  --background-image: url('/images/bg-light.png');
+  --history-action-color: black;
+  --history-action-border-color: transparent;
+  --history-action-background-color: white;
+  --history-background: rgba(255, 255, 255, 0.2);
+  --history-weather-background: rgba(255, 255, 255, 0.4);
 }
 
 .dark {
   --background-color: #121212;
   --text-color: #ffffff;
   --primary-color: #bb86fc;
+  --background-image: url('/images/bg-dark.png');
+  --history-action-color: rgba(255,255,255,0.5);
+  --history-action-border-color: rgba(255,255,255,0.5);
+  --history-action-background-color: transparent;
+  --history-background: rgba(26, 26, 26, 0.3);
+  --history-weather-background: rgba(26, 26, 26, 0.5);
 }
 
 @tailwind base;

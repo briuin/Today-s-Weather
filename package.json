@@ -9,7 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@coreui/icons": "^3.0.1",
+    "@coreui/icons-react": "^2.2.1",
     "axios": "^1.6.8",
+    "dayjs": "^1.11.11",
     "next": "14.2.3",
     "next-themes": "^0.3.0",
     "react": "^18",
