@@ -2,6 +2,9 @@
 
 A weather search application built with Next.js that allows users to search for weather information by city and country.
 
+## Demo
+test now ! [link](http://briuin.com:3000)
+
 ## Features
 
 - Search weather by city and country
