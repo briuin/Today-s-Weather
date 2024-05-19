@@ -1,10 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
+import { Switch } from "@nextui-org/switch";
 
 export const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+
+  const toggleTheme = () => {
+    theme === "light" ? setTheme("dark") : setTheme("light");
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -14,22 +19,14 @@ export const ThemeSwitcher = () => {
     return null;
   }
 
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
-
   return (
-    <>
-      <button
-        className="p-2 mt-4 bg-primary text-red rounded"
-        onClick={toggleTheme}
-      >
-        Toggle Theme
-      </button>
-      <div className="p-4">
-        <h1 className="text-2xl">Theme Switcher</h1>
-        <p>Current theme: {theme}</p>
-      </div>
-    </>
+    <Switch
+      defaultSelected
+      size="lg"
+      color="success"
+      onValueChange={toggleTheme}
+      startContent={<span>light</span>}
+      endContent={<span>dark</span>}
+    ></Switch>
   );
 };
