@@ -1,8 +1,8 @@
 "use client";
-import { Weather } from "./interfaces/weather";
+import { Weather } from "../interfaces/weather";
 import CIcon from "@coreui/icons-react";
 import { cilSearch, cilTrash } from "@coreui/icons";
-import useDateFormatter from "../hooks/useDateFormatter";
+import useDateFormatter from "../../hooks/useDateFormatter";
 
 interface HistoryWeatherProp {
   weather: Weather;

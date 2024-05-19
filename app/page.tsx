@@ -1,6 +1,6 @@
 "use client";
-import { WeatherMain } from "./weather-main";
-import { Header } from "./header";
+import { WeatherMain } from "./components/weather-main";
+import { Header } from "./components/header";
 import { WeatherProvider } from "@/context/weather-context";
 import { HistoryProvider } from "@/context/history-context";
 
